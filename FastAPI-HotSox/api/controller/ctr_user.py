@@ -90,9 +90,10 @@ def delete_user(request: schemas.SimplyUser, db: Session):
             detail=f"User with the username <{request.username}> and email <{request.email}> is not available!",
         )
 
-    db.query(models.User).filter(
-        models.User.username == request.username, models.User.email == request.email
-    ).delete()
+    # db.query(models.User).filter(
+    #     models.User.username == request.username, models.User.email == request.email
+    # ).delete()
+    db.delete(user)
     db.commit()
     return {"message": "Success! User deleted!"}
 

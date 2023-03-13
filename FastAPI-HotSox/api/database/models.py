@@ -66,7 +66,10 @@ class UserProfilePicture(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     profile_picture = Column(String)
-    user_id = Column(Integer, ForeignKey("app_users_user.id", ondelete="CASCADE"))
+    user_id = Column(
+        Integer,
+        ForeignKey("app_users_user.id", ondelete="CASCADE"),
+    )
 
     user = relationship("User", back_populates="profile_pictures")
 
@@ -75,8 +78,14 @@ class UserMatch(Base):
     __tablename__ = "app_users_usermatch"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("app_users_user.id", ondelete="CASCADE"))
-    other_id = Column(Integer, ForeignKey("app_users_user.id", ondelete="CASCADE"))
+    user_id = Column(
+        Integer,
+        ForeignKey("app_users_user.id", ondelete="CASCADE"),
+    )
+    other_id = Column(
+        Integer,
+        ForeignKey("app_users_user.id", ondelete="CASCADE"),
+    )
     unmatched = Column(Boolean)
     chatroom_uuid = Column(UUID(as_uuid=True))
 
@@ -88,7 +97,10 @@ class Sock(Base):
     __tablename__ = "app_users_sock"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("app_users_user.id", ondelete="CASCADE"))
+    user_id = Column(
+        Integer,
+        ForeignKey("app_users_user.id", ondelete="CASCADE"),
+    )
     info_joining_date = Column(DateTime)
     info_name = Column(String)
     info_about = Column(String)
@@ -119,7 +131,10 @@ class SockProfilePicture(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     profile_picture = Column(String)
-    sock_id = Column(Integer, ForeignKey("app_users_sock.id", ondelete="CASCADE"))
+    sock_id = Column(
+        Integer,
+        ForeignKey("app_users_sock.id", ondelete="CASCADE"),
+    )
 
     sock = relationship("Sock", back_populates="profile_pictures")
 
@@ -128,12 +143,19 @@ class SockLike(Base):
     __tablename__ = "app_users_socklike"
 
     id = Column(Integer, primary_key=True, index=True)
-    sock_id = Column(Integer, ForeignKey("app_users_sock.id", ondelete="CASCADE"))
+    sock_id = Column(
+        Integer,
+        ForeignKey("app_users_sock.id", ondelete="CASCADE"),
+    )
     like_id = Column(
-        Integer, ForeignKey("app_users_sock.id", ondelete="SET NULL"), nullable=True
+        Integer,
+        ForeignKey("app_users_sock.id", ondelete="SET NULL"),
+        nullable=True,
     )
     dislike_id = Column(
-        Integer, ForeignKey("app_users_sock.id", ondelete="SET NULL"), nullable=True
+        Integer,
+        ForeignKey("app_users_sock.id", ondelete="SET NULL"),
+        nullable=True,
     )
 
     sock = relationship("Sock", back_populates="sock_likes", foreign_keys=[sock_id])
@@ -147,7 +169,10 @@ class MessageMail(Base):
     __tablename__ = "app_users_messagemail"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("app_users_user.id", ondelete="CASCADE"))
+    user_id = Column(
+        Integer,
+        ForeignKey("app_users_user.id", ondelete="CASCADE"),
+    )
     subject = Column(String)
     content = Column(String)
     sent_date = Column(Date)
@@ -159,8 +184,14 @@ class MessageChat(Base):
     __tablename__ = "app_users_messagechat"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("app_users_user.id", ondelete="CASCADE"))
-    other_id = Column(Integer, ForeignKey("app_users_user.id", ondelete="CASCADE"))
+    user_id = Column(
+        Integer,
+        ForeignKey("app_users_user.id", ondelete="CASCADE"),
+    )
+    other_id = Column(
+        Integer,
+        ForeignKey("app_users_user.id", ondelete="CASCADE"),
+    )
     message = Column(String)
     sent_date = Column(DateTime)
     seen_date = Column(DateTime)
