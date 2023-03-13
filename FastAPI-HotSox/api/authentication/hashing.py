@@ -13,7 +13,7 @@ class Hash:
     """
 
     @staticmethod
-    def bcrypt(password: str) -> str:
+    def encrypt(password: str) -> str:
         """set hashed pwd"""
         return django_context.hash(password)
 
