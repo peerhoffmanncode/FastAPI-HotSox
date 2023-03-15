@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response, status
+from fastapi import APIRouter, Depends, Response, status, File, UploadFile
 from sqlalchemy.orm import Session
 
 # load database
@@ -61,6 +61,31 @@ async def delete_user(
     # as long as response is set to 204
     # we do net get a JSON as return :-( !
     return ctr_user.delete_user(request, db)
+
+
+##
+## Image
+##
+# TODO: needs permission handling
+@router.post("/{username}/profilepic", status_code=201)
+async def add_user_profile_picture(
+    username: str,
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: schemas.ShowUser = Depends(oauth2.get_current_user),
+):
+    return ctr_user.create_user_pic(username, file, db)
+
+
+# TODO: needs permission handling
+@router.delete("/{username}/profilepic/{id}", status_code=204)
+async def delete_user_profile_picture(
+    username: str,
+    id: str,
+    db: Session = Depends(get_db),
+    current_user: schemas.ShowUser = Depends(oauth2.get_current_user),
+):
+    return ctr_user.delete_user_pic(username, id, db)
 
 
 ##

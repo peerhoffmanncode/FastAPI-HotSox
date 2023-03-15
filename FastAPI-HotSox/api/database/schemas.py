@@ -31,6 +31,13 @@ class SimplySock(BaseModel):
 ### Actual HotSox models                                      ##
 ################################################################
 
+# basic schema for simplified user display
+class UserProfilePic(SimplyUser):
+
+    profile_pic: str | None
+
+    class Config:
+        orm_mode = True
 
 # basic schema for chats
 class MessageChat(BaseModel):
@@ -144,7 +151,7 @@ class ShowUser(BaseModel):
     date_joined: Optional[datetime]
     info_about: Optional[str]
     info_birthday: Optional[date]
-    info_gender: Optional[int]
+    info_gender: Optional[int | str | None] = 0
     location_city: Optional[str]
     location_latitude: Optional[float]
     location_longitude: Optional[float]
