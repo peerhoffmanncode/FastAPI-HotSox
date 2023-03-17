@@ -233,7 +233,7 @@ class Sock(Base):
         """
         Function to fix buggy SQLAlchemy cascade deletion!
         """
-        # find all matches and delete them
+        # find all likes and delete them
         likes = (
             db.query(SockLike)
             .filter(
@@ -253,7 +253,7 @@ class Sock(Base):
         )
         [pic.delete(db) for pic in pictures]
 
-        # delete user
+        # delete sock
         db.delete(self)
         return
 
@@ -277,7 +277,7 @@ class SockProfilePicture(Base):
         """Function to delete a UserProfilePicture from cloudinary"""
         # generate public_id
         public_id = self.profile_picture.split("/")[-1]
-        public_id = public_id[: public_id.find(".")]
+        public_id = public_id[:public_id.find(".")]
         if public_id:
             uploader.destroy(public_id)
         db.delete(self)

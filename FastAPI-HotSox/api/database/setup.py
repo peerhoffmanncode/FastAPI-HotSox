@@ -1,8 +1,18 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
 
-SQLALCHAMY_DATABASE_URL = "postgresql://postgres:postgres@localhost/hotsox_db"
+if os.path.isfile("env.py"):
+    import env
+DB_NAME = os.environ.get("DB_NAME")
+DB_USER = os.environ.get("DB_USER")
+DB_PASS = os.environ.get("DB_PASSWORD")
+DB_HOST = os.environ.get("DB_HOST")
+
+SQLALCHAMY_DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+
+print(SQLALCHAMY_DATABASE_URL)
 
 engine = create_engine(SQLALCHAMY_DATABASE_URL)
 
